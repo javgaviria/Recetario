@@ -36,7 +36,7 @@ title: null
      data-tags="{{ recipe.data.tags | join(',') }}"
      data-title="{{ recipe.data.title | lower }}"
      data-date="{{ recipe.data.sortDate }}"
-     data-search="{{ recipe.data.title | lower }} {{ recipe.data.description | lower }} {{ recipe.data.tags | join(' ') | lower }} {{ recipe.data.ingredients | join(' ') | lower }}">
+     data-search="{{ recipe.data | searchText }}">
     {% if recipe.data.image %}
       <div class="card-image" style="background-image:url('{{ recipe.data.image }}')"></div>
     {% else %}
