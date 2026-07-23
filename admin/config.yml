@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: TU-USUARIO/recetario   # <-- reemplazar por tu usuario/repo de GitHub
+  repo: javgaviria/recetario   # <-- reemplazar por tu usuario/repo de GitHub
   branch: main
 
 media_folder: "static/assets/uploads"
