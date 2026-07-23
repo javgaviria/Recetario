@@ -1,0 +1,66 @@
+---
+layout: layouts/base.njk
+title: null
+---
+<section class="hero">
+  <h1>Recetas, ordenadas por tag.</h1>
+  <p>Tocá uno o varios tags para filtrar. Volvé a tocarlos para sacarlos.</p>
+</section>
+
+<div class="controls-bar">
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="search" id="search-input" placeholder="Buscar por nombre, tag o ingrediente..." aria-label="Buscar recetas">
+  </div>
+  <div class="sort-wrap" role="group" aria-label="Ordenar recetas">
+    <button type="button" class="sort-btn is-active" id="sort-recent" data-sort="recent">Más recientes</button>
+    <button type="button" class="sort-btn" id="sort-az" data-sort="az">A-Z</button>
+  </div>
+</div>
+
+{% if collections.tagList.length %}
+<div class="filter-bar" id="filter-bar">
+  {% for tag in collections.tagList %}
+    <button type="button" class="tag-chip filter-chip" id="tag-{{ tag | slugify }}" data-tag="{{ tag }}">{{ tag }}</button>
+  {% endfor %}
+  <button type="button" class="clear-filters" id="clear-filters" hidden>Limpiar filtros</button>
+</div>
+{% endif %}
+
+<p class="no-results" id="no-results" hidden>No encontramos recetas que coincidan. Probá con otra búsqueda o sacá algún filtro.</p>
+
+<section class="recipe-grid" id="recipe-grid">
+  {% for recipe in collections.recipe %}
+  <a class="recipe-card"
+     href="{{ recipe.url }}"
+     data-tags="{{ recipe.data.tags | join(',') }}"
+     data-title="{{ recipe.data.title | lower }}"
+     data-date="{{ recipe.data.sortDate }}"
+     data-search="{{ recipe.data.title | lower }} {{ recipe.data.description | lower }} {{ recipe.data.tags | join(' ') | lower }} {{ recipe.data.ingredients | join(' ') | lower }}">
+    {% if recipe.data.image %}
+      <div class="card-image" style="background-image:url('{{ recipe.data.image }}')"></div>
+    {% else %}
+      <div class="card-image card-image--empty">🌿</div>
+    {% endif %}
+    <div class="card-body">
+      <h2 class="card-title">{{ recipe.data.title }}</h2>
+      {% if recipe.data.description %}<p class="card-description">{{ recipe.data.description }}</p>{% endif %}
+      <div class="card-meta">
+        {% if recipe.data.time %}<span>⏱ {{ recipe.data.time }}</span>{% endif %}
+        {% if recipe.data.servings %}<span>🍽 {{ recipe.data.servings }}</span>{% endif %}
+      </div>
+      {% if recipe.data.tags %}
+      <div class="tag-row">
+        {% for tag in recipe.data.tags %}
+          <span class="tag-chip small" data-tag="{{ tag }}">{{ tag }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </a>
+  {% else %}
+  <p class="empty-state">Todavía no hay recetas cargadas. Sumá la primera desde <a href="/admin/">/admin</a>.</p>
+  {% endfor %}
+</section>
+
+<script src="/js/filter.js"></script>

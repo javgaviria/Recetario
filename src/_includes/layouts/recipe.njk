@@ -1,0 +1,57 @@
+---
+layout: layouts/base.njk
+---
+<article class="recipe">
+  <a class="back-link" href="/">&larr; Todas las recetas</a>
+
+  <header class="recipe-header">
+    <h1 class="recipe-title">{{ title }}</h1>
+    {% if description %}<p class="recipe-description">{{ description }}</p>{% endif %}
+
+    <div class="recipe-meta">
+      {% if time %}<span class="meta-chip">⏱ {{ time }}</span>{% endif %}
+      {% if servings %}<span class="meta-chip">🍽 {{ servings }}</span>{% endif %}
+    </div>
+
+    {% if tags %}
+    <div class="tag-row">
+      {% for tag in tags %}
+        <a class="tag-chip" href="/#tag-{{ tag | slugify }}" data-tag="{{ tag }}">{{ tag }}</a>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </header>
+
+  {% if image %}
+  <div class="recipe-image">
+    <img src="{{ image }}" alt="{{ title }}" loading="lazy">
+  </div>
+  {% endif %}
+
+  <div class="recipe-body">
+    <aside class="ingredients-card">
+      <h2>Ingredientes</h2>
+      <ul class="ingredients-list">
+        {% for ing in ingredients %}
+          <li>{{ ing }}</li>
+        {% endfor %}
+      </ul>
+    </aside>
+
+    <div class="steps-card">
+      <h2>Preparación</h2>
+      <ol class="steps-list">
+        {% for step in steps %}
+          <li><span class="step-num">{{ loop.index }}</span><span>{{ step }}</span></li>
+        {% endfor %}
+      </ol>
+
+      {% if notes %}
+      <div class="notes">
+        <h3>Notas</h3>
+        <p>{{ notes }}</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</article>

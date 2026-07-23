@@ -1,0 +1,425 @@
+:root {
+  --paper: #FBF5E9;
+  --paper-card: #FFFDF8;
+  --ink: #2B2620;
+  --ink-soft: #5B5347;
+  --herb: #445E3C;
+  --herb-dark: #34492E;
+  --paprika: #B34B28;
+  --mustard: #C99A2E;
+  --line: #E3D9C4;
+  --radius: 14px;
+
+  --font-display: "Fraunces", serif;
+  --font-body: "Karla", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.55;
+}
+
+a { color: inherit; }
+
+img { max-width: 100%; display: block; }
+
+/* Header */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem clamp(1.25rem, 4vw, 3rem);
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: var(--herb-dark);
+}
+
+.brand-mark { font-size: 1.5rem; }
+
+.site-nav a {
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+main {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 3rem) 4rem;
+}
+
+/* Hero */
+.hero {
+  padding: clamp(2rem, 6vw, 4rem) 0 1.5rem;
+  max-width: 640px;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  margin: 0 0 0.5rem;
+  color: var(--ink);
+}
+
+.hero p {
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* Tag chip — the signature element: a little spice-label sticker */
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+  padding: 0.3rem 0.65rem;
+  border-radius: 6px;
+  border: 1.5px dashed var(--herb);
+  color: var(--herb-dark);
+  background: rgba(68, 94, 60, 0.06);
+  text-decoration: none;
+  cursor: pointer;
+  transform: rotate(var(--tilt, -1deg));
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.tag-chip:nth-of-type(3n) { --tilt: 1deg; border-color: var(--paprika); color: var(--paprika); background: rgba(179, 75, 40, 0.06); }
+.tag-chip:nth-of-type(3n+1) { --tilt: -1.2deg; }
+.tag-chip:nth-of-type(3n+2) { --tilt: 0.8deg; border-color: var(--mustard); color: #8a6a1f; background: rgba(201, 154, 46, 0.1); }
+
+.tag-chip:hover { transform: rotate(0deg) scale(1.04); }
+
+.tag-chip.small { font-size: 0.65rem; padding: 0.2rem 0.5rem; }
+
+.tag-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
+
+/* Search + sort controls */
+.controls-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1.25rem;
+}
+
+.search-wrap {
+  position: relative;
+  flex: 1 1 280px;
+  max-width: 420px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
+
+#search-input {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  padding: 0.65rem 1rem 0.65rem 2.3rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--paper-card);
+  color: var(--ink);
+}
+
+#search-input:focus-visible {
+  outline: 2px solid var(--herb);
+  outline-offset: 1px;
+}
+
+#search-input::placeholder { color: var(--ink-soft); opacity: 0.7; }
+
+.sort-wrap {
+  display: flex;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.sort-btn {
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--paper-card);
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.sort-btn.is-active {
+  background: var(--herb);
+  border-color: var(--herb-dark);
+  color: #fff;
+}
+
+.no-results {
+  color: var(--ink-soft);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  padding: 1.5rem 0;
+}
+
+/* Filter bar */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 1rem 0 2rem;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 2rem;
+}
+
+.filter-chip { background-color: rgba(68, 94, 60, 0.06); border-width: 1.5px; font-size: 0.75rem; }
+
+.filter-chip.is-active {
+  background: var(--herb);
+  border-style: solid;
+  border-color: var(--herb-dark);
+  color: #fff;
+  transform: rotate(0deg);
+}
+
+.clear-filters {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  background: none;
+  border: none;
+  color: var(--paprika);
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0.3rem 0.4rem;
+}
+
+/* Recipe grid */
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.recipe-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--paper-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--ink);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.recipe-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(43, 38, 32, 0.08);
+}
+
+.card-image {
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--line);
+}
+
+.card-image--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  background: linear-gradient(135deg, rgba(68,94,60,0.12), rgba(201,154,46,0.14));
+}
+
+.card-body { padding: 1.1rem 1.2rem 1.3rem; }
+
+.card-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 0.35rem;
+}
+
+.card-description {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  margin: 0 0 0.6rem;
+}
+
+.card-meta {
+  display: flex;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.5rem;
+}
+
+.empty-state { color: var(--ink-soft); }
+
+/* Recipe detail page */
+.back-link {
+  display: inline-block;
+  margin: 1.5rem 0 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  text-decoration: none;
+  color: var(--ink-soft);
+}
+
+.recipe-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 5vw, 2.9rem);
+  margin: 0 0 0.5rem;
+}
+
+.recipe-description {
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+  max-width: 620px;
+}
+
+.recipe-meta {
+  display: flex;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin: 0.75rem 0;
+}
+
+.recipe-image {
+  margin: 1.5rem 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.recipe-body {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 2.5rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 720px) {
+  .recipe-body { grid-template-columns: 1fr; }
+}
+
+.ingredients-card {
+  background: var(--paper-card);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  align-self: start;
+  position: sticky;
+  top: 1.5rem;
+}
+
+.ingredients-card h2, .steps-card h2 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  margin: 0 0 0.9rem;
+  color: var(--herb-dark);
+}
+
+.ingredients-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.ingredients-list li {
+  padding-bottom: 0.55rem;
+  border-bottom: 1px dotted var(--line);
+  font-size: 0.95rem;
+}
+
+.steps-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.steps-list li {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.step-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--paprika);
+  min-width: 1.6rem;
+}
+
+.notes {
+  margin-top: 2rem;
+  padding: 1.1rem 1.3rem;
+  background: rgba(201, 154, 46, 0.1);
+  border-radius: var(--radius);
+}
+
+.notes h3 {
+  font-family: var(--font-display);
+  margin: 0 0 0.4rem;
+  font-size: 1rem;
+}
+
+.notes p { margin: 0; color: var(--ink-soft); }
+
+/* Footer */
+.site-footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--ink-soft);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+/* Accessibility */
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--herb);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+}
