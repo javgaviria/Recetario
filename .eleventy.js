@@ -1,3 +1,6 @@
+const fs = require("fs");
+const path = require("path");
+
 module.exports = function (eleventyConfig) {
   // Static assets
   eleventyConfig.addPassthroughCopy({ "src/css": "css" });
@@ -5,6 +8,48 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "admin": "admin" });
 
   eleventyConfig.setUseGitIgnore(false);
+
+  // Ingredients pasted as plain text, one per line.
+  // Optional "## Group name" lines split them into sub-groups (e.g. base + salsa).
+  eleventyConfig.addFilter("parseIngredients", function (text) {
+    if (!text) return [];
+    const lines = String(text).split("\n").map((l) => l.trim());
+    const groups = [];
+    let current = { label: null, items: [] };
+    lines.forEach((line) => {
+      if (!line) return;
+      if (line.startsWith("##")) {
+        if (current.items.length || current.label) groups.push(current);
+        current = { label: line.replace(/^##\s*/, ""), items: [] };
+      } else {
+        current.items.push(line.replace(/^[-*•]\s*/, ""));
+      }
+    });
+    if (current.items.length || current.label) groups.push(current);
+    return groups;
+  });
+
+  // Steps pasted as plain text, one per line. Strips leading bullets/numbers.
+  eleventyConfig.addFilter("parseSteps", function (text) {
+    if (!text) return [];
+    return String(text)
+      .split("\n")
+      .map((l) => l.trim())
+      .filter(Boolean)
+      .map((l) => l.replace(/^[-*•]\s*/, "").replace(/^\d+[.)]\s*/, ""));
+  });
+
+  // Builds a flat lowercase string for the homepage search box
+  eleventyConfig.addFilter("searchText", function (data) {
+    const parts = [
+      data.title,
+      data.description,
+      (data.tags || []).join(" "),
+      data.ingredients,
+      data.steps,
+    ];
+    return parts.filter(Boolean).join(" ").replace(/\s+/g, " ").toLowerCase();
+  });
 
   // Slug filter (in case titles have accents / spaces)
   eleventyConfig.addFilter("slugify", function (str) {
@@ -16,6 +61,7 @@ module.exports = function (eleventyConfig) {
       .replace(/(^-|-$)/g, "");
   });
 
+  // Collect every unique tag across all recipes, sorted alphabetically
   eleventyConfig.addCollection("recipe", function (collectionApi) {
     return collectionApi
       .getFilteredByGlob("src/recipes/*.md")
