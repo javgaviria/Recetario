@@ -29,6 +29,6 @@ ingredients: |-
   Chile calabrés seco triturado: 3 g
   Passata de tomate: 900 g
   Sal kosher: 4,5-5 g (ajustar al gusto)
-steps: ''
-notes: ''
+steps: Procesar la leche con el pan y las hierbas. Luego mezclar todo. Hacer pelotas de 40-50g.
+notes: https://youtu.be/Xzp2qWEi8gs?si=vjWLNc91rTTN022O
 ---
