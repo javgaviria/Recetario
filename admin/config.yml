@@ -32,10 +32,11 @@ collections:
       - { label: Foto, name: image, widget: image, required: false }
       - label: Ingredientes
         name: ingredients
-        widget: list
-        field: { label: Ingrediente, name: item, widget: string }
+        widget: text
+        hint: "Pegá la lista, un ingrediente por línea. Si tenés una sección aparte (ej. la salsa), poné una línea '## Salsa' antes de esos ingredientes."
       - label: Pasos
         name: steps
-        widget: list
-        field: { label: Paso, name: step, widget: string }
+        widget: text
+        required: false
+        hint: "Pegá la preparación, un paso por línea."
       - { label: Notas, name: notes, widget: text, required: false }
