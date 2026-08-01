@@ -15,18 +15,6 @@ collections:
     identifier_field: title
     fields:
       - { label: Título, name: title, widget: string }
-      - label: Fecha
-        name: date
-        widget: datetime
-        default: ""
-        required: false
-        hint: "Se completa sola. Se usa para ordenar por 'más recientes'."
-      - { label: Descripción corta, name: description, widget: string, required: false }
-      - label: Tags
-        name: tags
-        widget: list
-        field: { label: Tag, name: tag, widget: string }
-        hint: "Escribí un tag por línea (ej. vegetariano, horno, rápido)"
       - { label: Tiempo, name: time, widget: string, required: false, hint: "ej. 30 min" }
       - { label: Porciones, name: servings, widget: string, required: false, hint: "ej. 4 porciones" }
       - { label: Foto, name: image, widget: image, required: false }
