@@ -388,17 +388,8 @@ main {
 }
 
 .steps-list li {
-  display: flex;
-  gap: 1rem;
-  align-items: flex-start;
-}
-
-.step-num {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: var(--paprika);
-  min-width: 1.6rem;
+  padding-left: 1.1rem;
+  border-left: 2px solid var(--line);
 }
 
 .notes {
