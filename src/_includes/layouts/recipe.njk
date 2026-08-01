@@ -37,7 +37,7 @@ layout: layouts/base.njk
       <h2>Preparación</h2>
       <ol class="steps-list">
         {% for step in steps | parseSteps %}
-          <li><span class="step-num">{{ loop.index }}</span><span>{{ step }}</span></li>
+          <li>{{ step }}</li>
         {% endfor %}
       </ol>
 
