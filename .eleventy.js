@@ -39,18 +39,6 @@ module.exports = function (eleventyConfig) {
       .map((l) => l.replace(/^[-*•]\s*/, "").replace(/^\d+[.)]\s*/, ""));
   });
 
-  // Builds a flat lowercase string for the homepage search box
-  eleventyConfig.addFilter("searchText", function (data) {
-    const parts = [
-      data.title,
-      data.description,
-      (data.tags || []).join(" "),
-      data.ingredients,
-      data.steps,
-    ];
-    return parts.filter(Boolean).join(" ").replace(/\s+/g, " ").toLowerCase();
-  });
-
   // Slug filter (in case titles have accents / spaces)
   eleventyConfig.addFilter("slugify", function (str) {
     return String(str)
@@ -61,20 +49,10 @@ module.exports = function (eleventyConfig) {
       .replace(/(^-|-$)/g, "");
   });
 
-  // Collect every unique tag across all recipes, sorted alphabetically
   eleventyConfig.addCollection("recipe", function (collectionApi) {
     return collectionApi
       .getFilteredByGlob("src/recipes/*.md")
-      .sort((a, b) => (b.data.sortDate || 0) - (a.data.sortDate || 0));
-  });
-
-  eleventyConfig.addCollection("tagList", function (collectionApi) {
-    const recipes = collectionApi.getFilteredByGlob("src/recipes/*.md");
-    const tagSet = new Set();
-    recipes.forEach((recipe) => {
-      (recipe.data.tags || []).forEach((tag) => tagSet.add(tag));
-    });
-    return [...tagSet].sort((a, b) => a.localeCompare(b, "es"));
+      .sort((a, b) => (a.data.title || "").localeCompare(b.data.title || "", "es"));
   });
 
   return {
